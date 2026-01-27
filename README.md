@@ -35,7 +35,10 @@ cp .env.example .env
 # 4. Run migrations
 npx prisma migrate dev
 
-# 5. Start development server
+# 5. (Optional) Seed demo data
+npm run seed
+
+# 6. Start development server
 npm run dev
 ```
 
@@ -58,7 +61,10 @@ createdb job_tracker
 # 4. Run migrations
 npx prisma migrate dev
 
-# 5. Start development server
+# 5. (Optional) Seed demo data
+npm run seed
+
+# 6. Start development server
 npm run dev
 ```
 
@@ -69,6 +75,7 @@ Your app runs at `http://localhost:3000` with hot reload enabled.
 - `npm run dev` - Development server with hot reload (tsx)
 - `npm run build` - Compile TypeScript to JavaScript
 - `npm start` - Run production build (compiled code)
+- `npm run seed` - Seed database with demo data
 - `npm run lint` - Check for linting errors
 - `npm run lint:fix` - Auto-fix linting errors
 
@@ -94,5 +101,21 @@ npm start      # Runs compiled JavaScript
 
 Once running, visit: `http://localhost:3000/api-docs`
 
-Interactive API documentation with request/response examples and the ability to test endpoints directly.
+Interactive Swagger UI documentation with request/response examples and the ability to test endpoints directly.
 
+---
+
+## Demo Data
+
+Seed the database with realistic demo data:
+
+```bash
+npm run seed
+```
+
+**Demo credentials:**
+
+- Email: `demo@example.com`
+- Password: `password123`
+
+The seed script can be run multiple times - it will refresh the demo data each time.
