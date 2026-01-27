@@ -13,7 +13,7 @@ Backend API for job search management. Track applications across companies, log 
 
 ## Setup
 
-**Prerequisites:** Node.js 22+
+**Prerequisites:** Node.js 20+
 
 ### Development Setup
 
@@ -92,7 +92,7 @@ npm start      # Runs compiled JavaScript
 
 ## API Documentation
 
-Once running, visit: `http://localhost:3000/api/docs`
+Once running, visit: `http://localhost:3000/api-docs`
 
 Interactive API documentation with request/response examples and the ability to test endpoints directly.
 
