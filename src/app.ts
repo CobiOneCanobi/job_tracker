@@ -1,4 +1,5 @@
 import 'dotenv/config';
+import { config } from './config/env.js';
 import express from 'express';
 import { setupSwagger } from './lib/swagger.js';
 import authRoutes from './routes/authRoutes.js';
@@ -12,7 +13,7 @@ setupSwagger(app);
 
 app.use('/', authRoutes);
 
-const PORT = process.env.PORT ?? '3000';
+const PORT = config.port;
 app.listen(PORT, (error) => {
   if (error) {
     throw error;
