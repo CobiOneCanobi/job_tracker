@@ -1,4 +1,4 @@
-interface Config {
+interface Env {
   port: number
   jwtSecret: string
   jwtExpiresIn: string
@@ -6,7 +6,7 @@ interface Config {
   nodeEnv: 'development' | 'production' | 'test'
 }
 
-function validateEnv(): Config {
+function validateEnv(): Env {
   const missing: string[] = [];
 
   if (!process.env.DATABASE_URL) missing.push('DATABASE_URL');
@@ -24,9 +24,9 @@ function validateEnv(): Config {
     jwtSecret: process.env.JWT_SECRET!,
     jwtExpiresIn: process.env.JWT_EXPIRES_IN || '1h',
     databaseUrl: process.env.DATABASE_URL!,
-    nodeEnv: (process.env.NODE_ENV || 'development') as Config['nodeEnv'],
+    nodeEnv: (process.env.NODE_ENV || 'development') as Env['nodeEnv'],
   };
 }
 
 // Validate and export config
-export const config = validateEnv();
+export const env = validateEnv();
