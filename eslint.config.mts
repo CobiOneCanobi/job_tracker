@@ -19,12 +19,12 @@ export default defineConfig([
 
   // JavaScript and TypeScript files
   {
-    files: ["**/*.{js,mjs,cjs,ts,mts,cts}"],
+    files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
     plugins: {
       js,
-      "@stylistic": stylistic,
+      '@stylistic': stylistic,
     },
-    extends: ["js/recommended"],
+    extends: ['js/recommended'],
     languageOptions: {
       globals: {
         ...globals.node,
@@ -32,25 +32,25 @@ export default defineConfig([
     },
     rules: {
       // Stylistic rules (Airbnb-like)
-      "@stylistic/indent": ["error", 2],
-      "@stylistic/quotes": ["error", "single", { avoidEscape: true }],
-      "@stylistic/semi": ["error", "always"],
-      "@stylistic/comma-dangle": ["error", "always-multiline"],
-      "@stylistic/no-trailing-spaces": "error",
-      "@stylistic/eol-last": ["error", "always"],
-      "@stylistic/arrow-parens": ["error", "always"],
+      '@stylistic/indent': ['error', 2],
+      '@stylistic/quotes': ['error', 'single', { avoidEscape: true }],
+      '@stylistic/semi': ['error', 'always'],
+      '@stylistic/comma-dangle': ['error', 'always-multiline'],
+      '@stylistic/no-trailing-spaces': 'error',
+      '@stylistic/eol-last': ['error', 'always'],
+      '@stylistic/arrow-parens': ['error', 'always'],
 
       // Best practices
-      "no-console": ["warn", { allow: ["warn", "error"] }],
-      "no-unused-vars": "off", // Handled by TypeScript
-      "prefer-const": "error",
-      "no-var": "error",
+      'no-console': ['warn', { allow: ['warn', 'error'] }],
+      'no-unused-vars': 'off', // Handled by TypeScript
+      'prefer-const': 'error',
+      'no-var': 'error',
     },
   },
 
   // TypeScript strict config (only for TS files)
   {
-    files: ["**/*.{ts,mts,cts}"],
+    files: ['**/*.{ts,mts,cts}'],
     extends: [...tseslint.configs.strictTypeChecked],
     languageOptions: {
       parserOptions: {
@@ -58,5 +58,17 @@ export default defineConfig([
         tsconfigRootDir: import.meta.dirname,
       },
     },
+    rules: {
+      // Allow numbers in template strings
+      '@typescript-eslint/restrict-template-expressions': [
+        'error',
+        {
+          allowNumber: true,
+        },
+      ],
+
+      // Allow ! when validated (use sparingly)
+      '@typescript-eslint/no-non-null-assertion': 'off',
+    },
   },
-]);
+])
