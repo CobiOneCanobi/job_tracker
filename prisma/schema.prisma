@@ -18,6 +18,7 @@ model User {
   name         String
   email        String        @unique
   password     String
+  sessionId    String?
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
   companies    Company[]
@@ -46,7 +47,6 @@ model Application {
   status        ApplicationStatus @default(SAVED)
   notes         String?
   appliedDate   DateTime?
-  sessionId     Int?
   createdAt     DateTime          @default(now())
   updatedAt     DateTime          @updatedAt
   companyId     Int
