@@ -1,29 +1,16 @@
 import 'dotenv/config';
 import express from 'express';
 import { setupSwagger } from './lib/swagger.js';
+import authRoutes from './routes/authRoutes.js';
 
 const app = express();
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 setupSwagger(app);
 
-/**
- * @openapi
- * /:
- *   get:
- *     summary: Health check
- *     description: Returns a simple hello world message
- *     responses:
- *       200:
- *         description: Success
- *         content:
- *           text/plain:
- *             schema:
- *               type: string
- *               example: hello world
- */
-app.get('/', (_req, res) => res.send('hello world'));
+app.use('/', authRoutes);
 
 const PORT = process.env.PORT ?? '3000';
 app.listen(PORT, (error) => {
