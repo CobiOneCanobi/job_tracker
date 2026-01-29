@@ -11,6 +11,10 @@ Backend API for job search management. Track applications across companies, log 
 
 ---
 
+## 🚧 Project Status
+
+**Active Development** - Core features in progress
+
 ## Setup
 
 **Prerequisites:** Node.js 20+
