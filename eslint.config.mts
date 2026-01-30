@@ -69,6 +69,15 @@ export default defineConfig([
 
       // Allow ! when validated (use sparingly)
       '@typescript-eslint/no-non-null-assertion': 'off',
+
+      // Allow unused vars/params that start with underscore
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+        },
+      ],
     },
   },
 ])

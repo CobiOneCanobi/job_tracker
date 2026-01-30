@@ -40,6 +40,42 @@
  *           type: number
  *           example: 1
  *
+ *     LoginRequest:
+ *       type: object
+ *       required:
+ *         - email
+ *         - password
+ *       properties:
+ *         email:
+ *           type: string
+ *           format: email
+ *           example: john.doe@example.com
+ *         password:
+ *           type: string
+ *           minLength: 8
+ *           maxLength: 20
+ *           example: password123
+ *
+ *     LoginResponse:
+ *       type: object
+ *       properties:
+ *         token:
+ *           type: string
+ *           example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+ *         user:
+ *           type: object
+ *           properties:
+ *             id:
+ *               type: number
+ *               example: 1
+ *             name:
+ *               type: string
+ *               example: John Doe
+ *             email:
+ *               type: string
+ *               example: john.doe@example.com
+
+ *
  *     ErrorResponse:
  *       type: object
  *       properties:
