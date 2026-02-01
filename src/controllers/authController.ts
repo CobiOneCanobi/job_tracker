@@ -153,11 +153,13 @@ export const login = async (req: Request, res: Response) : Promise<void> => {
 
 /**
  * @openapi
- * /auth/logout:
+ * /logout:
  *   post:
  *     tags:
  *       - Authentication
  *     summary: Logout from the current session
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: Logout successful
@@ -169,8 +171,20 @@ export const login = async (req: Request, res: Response) : Promise<void> => {
  *                 message:
  *                   type: string
  *                   example: Logged out successfully
+ *       500:
+ *         description: Server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
  */
-export const logout = (req: Request, res: Response) => {
-  // relying on client side to delete the token
-  res.json({ message: 'Logged out successfully' });
+export const logout = async (req: Request, res: Response) => {
+  try {
+    await authService.logout(req.user.id);
+    req.user = undefined
+    res.status(200).json({ message: 'Logged out successfully' })
+  } catch (error) {
+    console.error('Logout error:', error);
+    res.status(500).json({ error: 'Logout failed' });
+  }
 };

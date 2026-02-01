@@ -91,6 +91,11 @@
  *               message:
  *                 type: string
  *                 example: Invalid email
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
  */
 
 // This file only contains JSDoc comments for Swagger schema definitions

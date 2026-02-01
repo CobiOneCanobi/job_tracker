@@ -33,6 +33,7 @@ export const ensureAuthenticated = async (req : Request, res : Response, next : 
       return;
     }
 
+    req.user = user;
     next();
   } catch (error) {
     console.error('Authentication failed:', error);

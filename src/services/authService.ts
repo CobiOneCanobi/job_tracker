@@ -10,7 +10,7 @@ export const authService = {
       return await prisma.user.create({
         data: { name: data.name, email: data.email, password: hashed },
       });
-    } catch (error ) {
+    } catch (error) {
       // P2002 = Prisma unique constraint violation (duplicate email)
       if (
         error instanceof PrismaClientKnownRequestError &&
@@ -35,14 +35,12 @@ export const authService = {
 
     const sessionId = crypto.randomUUID();
 
-    try {
-      user = await prisma.user.update({ where: { id: user.id }, data: { sessionId } });
-    } catch (error) {
-      console.error('Session update failed:', error);
-      throw new Error('Login failed. Please try again later');
-    }
+    user = await prisma.user.update({ where: { id: user.id }, data: { sessionId } });
 
     return user;
+  },
+  async logout(userId : number) : Promise<void> {
+    await prisma.user.update({ where: { id: userId }, data: { sessionId: null }});
   },
 };
 
