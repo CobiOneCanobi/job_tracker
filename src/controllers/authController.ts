@@ -68,9 +68,8 @@ export const signUp = async (req: Request, res: Response): Promise<void> => {
       res.status(409).json({ errors: [{ message: error.message }] });
       return;
     }
-    res
-      .status(500)
-      .json({ errors: [{ message: 'Unable to create account' }] });
+    console.error('Sign up error:', error);
+    res.status(500).json({ errors: [{ message: 'Unable to create account' }] });
   }
 };
 
@@ -130,7 +129,7 @@ export const login = async (req: Request, res: Response) : Promise<void> => {
     const { email, password } = result.data;
     const user = await authService.login(email, password);
 
-    const token : string = jwt.sign({ userId: user.id, sessionId: user.sessionId }, env.jwtSecret, {
+    const token = jwt.sign({ userId: user.id, sessionId: user.sessionId }, env.jwtSecret, {
       expiresIn: env.jwtExpiresIn,
     });
 
@@ -150,4 +149,28 @@ export const login = async (req: Request, res: Response) : Promise<void> => {
     console.error('Login error:', error);
     res.status(500).json({ error: 'Login failed' });
   }
+};
+
+/**
+ * @openapi
+ * /auth/logout:
+ *   post:
+ *     tags:
+ *       - Authentication
+ *     summary: Logout from the current session
+ *     responses:
+ *       200:
+ *         description: Logout successful
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Logged out successfully
+ */
+export const logout = (req: Request, res: Response) => {
+  // relying on client side to delete the token
+  res.json({ message: 'Logged out successfully' });
 };
