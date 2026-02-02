@@ -14,7 +14,7 @@ const options = {
     servers: [
       {
         url: env.nodeEnv === 'production'
-          ? 'https://job-tracker.onrender.com'
+          ? 'https://job-tracker-api-cjxa.onrender.com'
           : 'http://localhost:3000',
         description: env.nodeEnv === 'production'
           ? 'Production server'
