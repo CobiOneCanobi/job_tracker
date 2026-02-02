@@ -12,6 +12,9 @@ app.use(express.urlencoded({ extended: true }));
 
 setupSwagger(app);
 
+app.get('/', (_req : Request, res : Response) : void => {
+  res.redirect('/api-docs');
+})
 app.use('/', authRoutes);
 
 app.use((err : Error, _req : Request, res : Response, _next : NextFunction) : void => {

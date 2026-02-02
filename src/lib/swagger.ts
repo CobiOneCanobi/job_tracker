@@ -1,6 +1,7 @@
 import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import type { Express } from 'express';
+import { env } from '../config/env.js';
 
 const options = {
   definition: {
@@ -12,8 +13,12 @@ const options = {
     },
     servers: [
       {
-        url: 'http://localhost:3000',
-        description: 'Development server',
+        url: env.nodeEnv === 'production'
+          ? 'https://job-tracker.onrender.com'
+          : 'http://localhost:3000',
+        description: env.nodeEnv === 'production'
+          ? 'Production server'
+          : 'Development server',
       },
     ],
   },
