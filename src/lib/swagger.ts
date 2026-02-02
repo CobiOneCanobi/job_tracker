@@ -13,19 +13,20 @@ const options = {
     },
     servers: [
       {
-        url: env.nodeEnv === 'production'
-          ? 'https://job-tracker-api-cjxa.onrender.com'
-          : 'http://localhost:3000',
-        description: env.nodeEnv === 'production'
-          ? 'Production server'
-          : 'Development server',
+        url:
+          env.nodeEnv === 'production'
+            ? 'https://job-tracker-api-cjxa.onrender.com'
+            : 'http://localhost:3000',
+        description:
+          env.nodeEnv === 'production'
+            ? 'Production server'
+            : 'Development server',
       },
     ],
   },
-  apis: env.nodeEnv === 'production'
-    ? ['./dist/src/**/*.js']
-    : ['./src/**/*.ts'], // Path to files with API documentation
-};
+  apis:
+    env.nodeEnv === 'production' ? ['./dist/src/**/*.js'] : ['./src/**/*.ts'], // Path to files with API documentation
+}
 
 const swaggerSpec = swaggerJsdoc(options);
 
