@@ -12,6 +12,10 @@ export const ensureAuthenticated = async (req : Request, res : Response, next : 
   }
 
   const token = authHeader.split(' ')[1];
+  if (!token) {
+    res.status(401).json({ error: 'Missing token' });
+    return;
+  }
 
   try {
     const decoded = jwt.verify(token, env.jwtSecret);
@@ -26,6 +30,7 @@ export const ensureAuthenticated = async (req : Request, res : Response, next : 
 
     if (!user) {
       res.status(401).json({ error: 'User not found' });
+      return;
     }
 
     if (user.sessionId !== decoded.sessionId) {

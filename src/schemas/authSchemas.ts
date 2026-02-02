@@ -12,8 +12,7 @@ export const signUpSchema = z
     path: ['passwordConfirmation'],
   });
 
-export const loginSchema = z
-  .object({
-    email: z.email().transform((val) => val.trim().toLowerCase()),
-    password: z.string().min(8).max(20),
-  });
+export const loginSchema = z.object({
+  email: z.email().transform((val) => val.trim().toLowerCase()),
+  password: z.string().min(8).max(20),
+});

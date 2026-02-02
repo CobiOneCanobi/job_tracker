@@ -49,7 +49,7 @@ export const signUp = async (req: Request, res: Response): Promise<void> => {
   if (!result.success) {
     res.status(400).json({
       errors: result.error.issues.map((err) => ({
-        field: err.path.join('.'),
+        field: err.path.map(String).join('.'),
         message: err.message,
       })),
     });
@@ -118,7 +118,7 @@ export const login = async (req: Request, res: Response) : Promise<void> => {
   if (!result.success) {
     res.status(400).json({
       errors: result.error.issues.map((err) => ({
-        field: err.path.join('.'),
+        field: err.path.map(String).join('.'),
         message: err.message,
       })),
     });
@@ -129,9 +129,11 @@ export const login = async (req: Request, res: Response) : Promise<void> => {
     const { email, password } = result.data;
     const user = await authService.login(email, password);
 
-    const token = jwt.sign({ userId: user.id, sessionId: user.sessionId }, env.jwtSecret, {
-      expiresIn: env.jwtExpiresIn,
-    });
+    const token = jwt.sign(
+      { userId: user.id, sessionId: user.sessionId },
+      env.jwtSecret,
+      { expiresIn: env.jwtExpiresIn } as jwt.SignOptions
+    );
 
     res.json({
       token,
@@ -179,10 +181,14 @@ export const login = async (req: Request, res: Response) : Promise<void> => {
  *               $ref: '#/components/schemas/ErrorResponse'
  */
 export const logout = async (req: Request, res: Response) => {
+  if (!req.user) {
+    res.status(401).json({ error: 'Not authenticated' });
+    return;
+  }
+
   try {
     await authService.logout(req.user.id);
-    req.user = undefined
-    res.status(200).json({ message: 'Logged out successfully' })
+    res.status(200).json({ message: 'Logged out successfully' });
   } catch (error) {
     console.error('Logout error:', error);
     res.status(500).json({ error: 'Logout failed' });
