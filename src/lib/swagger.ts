@@ -22,7 +22,9 @@ const options = {
       },
     ],
   },
-  apis: ['./src/**/*.ts'], // Path to files with API documentation
+  apis: env.nodeEnv === 'production'
+    ? ['./dist/src/**/*.js']
+    : ['./src/**/*.ts'], // Path to files with API documentation
 };
 
 const swaggerSpec = swaggerJsdoc(options);
