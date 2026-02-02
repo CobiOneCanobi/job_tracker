@@ -10,13 +10,12 @@ export const authService = {
       return await prisma.user.create({
         data: { name: data.name, email: data.email, password: hashed },
       });
-    } catch (error) {
+    } catch (error: unknown) {
       // P2002 = Prisma unique constraint violation (duplicate email)
-      if (
-        error instanceof PrismaClientKnownRequestError &&
-        error.code === 'P2002'
-      ) {
-        throw new Error('Email already exists');
+      if (error instanceof PrismaClientKnownRequestError) {
+        if (error.code === 'P2002') {
+          throw new Error('Email already exists');
+        }
       }
       throw error;
     }
