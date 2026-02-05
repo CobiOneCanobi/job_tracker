@@ -91,6 +91,35 @@
  *               message:
  *                 type: string
  *                 example: Invalid email
+ *
+ *     Company:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: integer
+ *           example: 1
+ *         name:
+ *           type: string
+ *           example: Anthropic
+ *         website:
+ *           type: string
+ *           nullable: true
+ *           example: https://anthropic.com
+ *         notes:
+ *           type: string
+ *           nullable: true
+ *           example: AI safety and research company
+ *         createdAt:
+ *           type: string
+ *           format: date-time
+ *           example: 2024-01-15T10:30:00.000Z
+ *         updatedAt:
+ *           type: string
+ *           format: date-time
+ *           example: 2024-01-15T10:30:00.000Z
+ *         userId:
+ *           type: integer
+ *           example: 1
  *   securitySchemes:
  *     bearerAuth:
  *       type: http

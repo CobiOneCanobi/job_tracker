@@ -4,6 +4,7 @@ import express from 'express';
 import type { Request, Response, NextFunction } from 'express';
 import { setupSwagger } from './lib/swagger.js';
 import authRoutes from './routes/authRoutes.js';
+import companyRoutes from './routes/companyRoutes.js';
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.get('/', (_req : Request, res : Response) : void => {
   res.redirect('/api-docs');
 });
 app.use('/', authRoutes);
+app.use('/companies', companyRoutes);
 
 app.use((err : Error, _req : Request, res : Response, _next : NextFunction) : void => {
   console.error('Unhandled error:', err);

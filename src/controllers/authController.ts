@@ -43,7 +43,7 @@ import { env } from '../config/env.js';
  *             schema:
  *               $ref: '#/components/schemas/ErrorResponse'
  */
-export const signUp = async (req: Request, res: Response): Promise<void> => {
+export const signUp = async (req: Request, res: Response) : Promise<void> => {
   const result = signUpSchema.safeParse(req.body);
 
   if (!result.success) {
@@ -180,14 +180,9 @@ export const login = async (req: Request, res: Response) : Promise<void> => {
  *             schema:
  *               $ref: '#/components/schemas/ErrorResponse'
  */
-export const logout = async (req: Request, res: Response) => {
-  if (!req.user) {
-    res.status(401).json({ errors: [{ message: 'Not authenticated' }] });
-    return;
-  }
-
+export const logout = async (req: Request, res: Response) : Promise<void> => {
   try {
-    await authService.logout(req.user.id);
+    await authService.logout(req.user!.id);
     res.status(200).json({ message: 'Logged out successfully' });
   } catch (error) {
     console.error('Logout error:', error);
