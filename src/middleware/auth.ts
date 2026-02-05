@@ -13,7 +13,7 @@ export const ensureAuthenticated = async (req : Request, res : Response, next : 
 
   const token = authHeader.split(' ')[1];
   if (!token) {
-    res.status(401).json({ error: 'Missing token' });
+    res.status(401).json({ errors: [{ message: 'Missing token' }] });
     return;
   }
 
@@ -22,19 +22,19 @@ export const ensureAuthenticated = async (req : Request, res : Response, next : 
 
     // decoded can technically be string or JwtPayload
     if (typeof decoded === 'string') {
-      res.status(401).json({ error: 'Invalid token' });
+      res.status(401).json({ errors: [{ message: 'Invalid token' }] });
       return;
     }
 
     const user = await prisma.user.findUnique({ where: { id: decoded.userId as number } });
 
     if (!user) {
-      res.status(401).json({ error: 'User not found' });
+      res.status(401).json({ errors: [{ message: 'User not found' }] });
       return;
     }
 
     if (user.sessionId !== decoded.sessionId) {
-      res.status(401).json({ error: 'Session expired' });
+      res.status(401).json({ errors: [{ message: 'Session expired' }] });
       return;
     }
 
@@ -42,7 +42,7 @@ export const ensureAuthenticated = async (req : Request, res : Response, next : 
     next();
   } catch (error) {
     console.error('Authentication failed:', error);
-    res.status(401).json({ error: 'Invalid or expired token' });
+    res.status(401).json({ errors: [{ message: 'Invalid or expired token' }] });
   }
 
 };

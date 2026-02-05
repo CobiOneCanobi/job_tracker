@@ -11,6 +11,7 @@ export default defineConfig([
       'dist/**',
       'node_modules/**',
       'generated/**',
+      'prisma/**',
       '*.config.{js,ts,mts}',
       'tsconfig.json',
       'package-lock.json',

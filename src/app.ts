@@ -14,12 +14,12 @@ setupSwagger(app);
 
 app.get('/', (_req : Request, res : Response) : void => {
   res.redirect('/api-docs');
-})
+});
 app.use('/', authRoutes);
 
 app.use((err : Error, _req : Request, res : Response, _next : NextFunction) : void => {
   console.error('Unhandled error:', err);
-  res.status(500).json({ error: 'Internal server error' });
+  res.status(500).json({ errors: [{ message: 'Internal server error' }] });
 });
 
 const PORT = env.port;
