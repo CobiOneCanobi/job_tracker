@@ -49,7 +49,7 @@ export const signUp = async (req: Request, res: Response) : Promise<void> => {
   if (!result.success) {
     res.status(400).json({
       errors: result.error.issues.map((err) => ({
-        field: err.path.map(String).join('.'),
+        field: err.path.join('.'),
         message: err.message,
       })),
     });
@@ -60,8 +60,11 @@ export const signUp = async (req: Request, res: Response) : Promise<void> => {
     const user = await authService.signUp(result.data);
 
     res.status(201).json({
-      message: 'Account created',
-      userId: user.id,
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+      },
     });
   } catch (error) {
     if (error instanceof Error && error.message.includes('already exists')) {
@@ -118,7 +121,7 @@ export const login = async (req: Request, res: Response) : Promise<void> => {
   if (!result.success) {
     res.status(400).json({
       errors: result.error.issues.map((err) => ({
-        field: err.path.map(String).join('.'),
+        field: err.path.join('.'),
         message: err.message,
       })),
     });

@@ -33,12 +33,19 @@
  *     SignUpResponse:
  *       type: object
  *       properties:
- *         message:
- *           type: string
- *           example: Account created
- *         userId:
- *           type: number
- *           example: 1
+ *         user:
+ *           type: object
+ *           properties:
+ *             id:
+ *               type: integer
+ *               example: 1
+ *             name:
+ *               type: string
+ *               example: John Doe
+ *             email:
+ *               type: string
+ *               format: email
+ *               example: john.doe@example.com
  *
  *     LoginRequest:
  *       type: object
@@ -86,13 +93,34 @@
  *             properties:
  *               field:
  *                 type: string
- *                 example: email
- *                 required: false
+ *                 description: Only present on validation errors
  *               message:
  *                 type: string
- *                 example: Invalid email
+ *       example:
+ *         errors:
+ *           - message: Something went wrong
  *
- *     Company:
+ *     CompanyRequest:
+ *       type: object
+ *       required:
+ *         - name
+ *       properties:
+ *         name:
+ *           type: string
+ *           minLength: 1
+ *           maxLength: 50
+ *           example: Anthropic
+ *         website:
+ *           type: string
+ *           nullable: true
+ *           example: https://anthropic.com
+ *         notes:
+ *           type: string
+ *           nullable: true
+ *           maxLength: 300
+ *           example: AI safety and research company
+ *
+ *     CompanyResponse:
  *       type: object
  *       properties:
  *         id:
